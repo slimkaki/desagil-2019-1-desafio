@@ -3,6 +3,7 @@ package br.pro.hashi.ensino.desagil.desafio;
 import br.pro.hashi.ensino.desagil.desafio.model.Board;
 import br.pro.hashi.ensino.desagil.desafio.model.Element;
 import br.pro.hashi.ensino.desagil.desafio.model.Model;
+import br.pro.hashi.ensino.desagil.desafio.model.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -83,5 +84,13 @@ public class View extends JPanel {
     private Image getImage(String name) {
         URL url = getClass().getClassLoader().getResource(name);
         return getToolkit().getImage(url);
+    }
+
+    public void drawWinner(Graphics g, Player winner) {
+        if (model.getWinner() == model.getHumanPlayer()) {
+            g.drawString("Human Player Wins!", 0, 0);
+        } else {
+            g.drawString("CPU Player Wins!", 0, 0);
+        }
     }
 }

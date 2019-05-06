@@ -1,9 +1,11 @@
 package br.pro.hashi.ensino.desagil.desafio;
 
 import br.pro.hashi.ensino.desagil.desafio.model.CpuPlayer;
+import br.pro.hashi.ensino.desagil.desafio.model.Element;
 import br.pro.hashi.ensino.desagil.desafio.model.HumanPlayer;
 import br.pro.hashi.ensino.desagil.desafio.model.Model;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -31,6 +33,7 @@ public class Controller implements KeyListener, ActionListener {
     @Override
     public void keyPressed(KeyEvent event) {
         HumanPlayer humanPlayer = model.getHumanPlayer();
+        Element target = model.getTarget();
 
         // Para agir de acordo com a tecla que foi pressionada, comparamos o key code do evento com as
         // constantes disponíveis na classe KeyEvent. Uma lista dessas constantes pode ser vista em
@@ -50,6 +53,10 @@ public class Controller implements KeyListener, ActionListener {
                 break;
         }
 
+        if (humanPlayer.getRow() == target.getRow() && humanPlayer.getCol() == target.getCol()) {
+            model.setWinner(humanPlayer);
+
+        }
         view.repaint();
     }
 
@@ -65,9 +72,14 @@ public class Controller implements KeyListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         CpuPlayer cpuPlayer = model.getCpuPlayer();
+        Element target = model.getTarget();
 
         cpuPlayer.move();
 
-        view.repaint();
+        if (cpuPlayer.getRow() == target.getRow() && cpuPlayer.getCol() == target.getCol()) {
+            model.setWinner(cpuPlayer);
+        } else {
+            view.repaint();
+        }
     }
 }

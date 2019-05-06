@@ -43,4 +43,5 @@ public class Model {
     public CpuPlayer getCpuPlayer() {
         return cpuPlayer;
     }
+
 }

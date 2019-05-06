@@ -1,8 +1,11 @@
 package br.pro.hashi.ensino.desagil.desafio;
 
+import br.pro.hashi.ensino.desagil.desafio.model.HumanPlayer;
 import br.pro.hashi.ensino.desagil.desafio.model.Model;
+import br.pro.hashi.ensino.desagil.desafio.model.Player;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Desafio {
     public static void main(String[] args) {
@@ -42,5 +45,8 @@ public class Desafio {
             // Inicia o relógio.
             timer.start();
         });
+        if (model.getWinner() != null) {
+            view.drawWinner(Graphics g,model.getWinner());
+        }
     }
 }
