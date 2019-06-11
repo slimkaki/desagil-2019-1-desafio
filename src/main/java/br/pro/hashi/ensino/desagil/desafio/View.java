@@ -1,11 +1,10 @@
 package br.pro.hashi.ensino.desagil.desafio;
 
-import br.pro.hashi.ensino.desagil.desafio.model.Board;
-import br.pro.hashi.ensino.desagil.desafio.model.Element;
-import br.pro.hashi.ensino.desagil.desafio.model.Model;
+import br.pro.hashi.ensino.desagil.desafio.model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.Map;
 
@@ -53,6 +52,15 @@ public class View extends JPanel {
     public void paintComponent(Graphics g) {
         Board board = model.getBoard();
 
+        // get objects
+        HumanPlayer humanPlayer = model.getHumanPlayer();
+        CpuPlayer cpuPlayer = model.getCpuPlayer();
+        Element target = model.getTarget();
+
+        // winner char arrays
+        String humanWinnerString = "Human Player Wins!!!";
+        String cpuWinnerString = "CPU Player Wins!!!";
+
         for (int i = 0; i < board.getNumRows(); i++) {
             for (int j = 0; j < board.getNumCols(); j++) {
                 if (board.isWall(i, j)) {
@@ -71,6 +79,20 @@ public class View extends JPanel {
 
             g.drawImage(image, col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE, this);
         });
+
+        // Caso o jogador humano seja o vencedor
+        if (humanPlayer.getRow() == target.getRow() && humanPlayer.getCol() == target.getCol()) {
+            g.setColor(Color.RED);
+            g.setFont(new Font("Arial Black", Font.PLAIN, 40));
+            g.drawString(humanWinnerString, board.getNumCols()*CELL_SIZE/4, board.getNumRows()*CELL_SIZE/2);
+        }
+
+        // Caso o computador seja o vencedor
+        if(cpuPlayer.getRow() == target.getRow() && cpuPlayer.getCol() == target.getCol()) {
+            g.setColor(Color.RED);
+            g.setFont(new Font("Arial Black", Font.PLAIN, 40));
+            g.drawString(cpuWinnerString, (board.getNumCols() * CELL_SIZE)/4, (board.getNumRows() * CELL_SIZE)/2);
+        }
 
         // Linha necessária para evitar atrasos
         // de renderização em sistemas Linux.

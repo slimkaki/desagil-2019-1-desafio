@@ -83,6 +83,11 @@ public class CpuPlayer extends Player {
         }
     }
 
+    public void stop() {
+        move(0, 0);
+        save();
+    }
+
     private void save() {
         visited[row][col] = true;
         stack.push(new Node(row, col));
